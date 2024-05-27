@@ -1,20 +1,43 @@
+import java.io.File;
+
 public class Driver {
   public static void main(String [] args) {
+      // Constructors test
       Polynomial p = new Polynomial();
-      System.out.println(p.evaluate(3));
 
-      double [] c1 = {6,0,0,5};
-      Polynomial p1 = new Polynomial(c1);
+      double [] c1 = {1, 1};
+      int [] e1 = {5, 6};
+      Polynomial p1 = new Polynomial(c1, e1);
+      System.out.println("Polynomial 1:");
+      p1.print_polynomial();
 
-      double [] c2 = {0,-2,0,0,-9};
-      Polynomial p2 = new Polynomial(c2);
+      double [] c2 = {1, 1, -1};
+      int [] e2 = {1, 2, 5};
+      Polynomial p2 = new Polynomial(c2, e2);
+      System.out.println("Polynomial 2:");
+      p2.print_polynomial();
 
-      Polynomial s = p1.add(p2);
-      System.out.println("s(0.1) = " + s.evaluate(0.1));
+      Polynomial p3 = new Polynomial(new File("polynomial.txt"));
+      System.out.println("Polynomial 3:");
+      p3.print_polynomial();
+
+      // Methods Test
+      Polynomial sum = p1.add(p2);
+      System.out.println("Polynomial 1 + Polynomial 2");
+      sum.print_polynomial();
+
+
+      Polynomial product = p1.multiply(p3);
+      System.out.println("Polynomial 1 * Polynomial 3");
+      product.print_polynomial();
+
+      product.saveToFile("product.txt");
+
+      System.out.println("product @ x=1 = " + product.evaluate(1));
       
-      if(s.hasRoot(1))
-        System.out.println("1 is a root of s");
+      if(sum.hasRoot(1))
+        System.out.println("1 is a root of sum");
       else
-        System.out.println("1 is not a root of s");
+        System.out.println("1 is not a root of sum");
     }
 }
